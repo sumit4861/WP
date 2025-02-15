@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITW Homepage Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        header img {
+            width: 10%;
+            text-align: middle;
+        }
+
+        nav {
+            background-color: #00509e;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            background-color: #003366;
+        }
+
+        .announcements {
+            background-color: #ffcc00;
+            padding: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .announcements span {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        .slider {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            animation: slide 25s infinite;
+        }
+
+        .slides img {
+            width: 100%;
+            height: auto;
+        }
+
+        @keyframes slide {
+            0%, 20% { transform: translateX(0%); }
+            25%, 45% { transform: translateX(-100%); }
+            50%, 70% { transform: translateX(-200%); }
+            75%, 100% { transform: translateX(0%); }
+        }
+
+        .news-events {
+            padding: 20px;
+            display: flex;
+            margin: 5%;
+            border-radius: 10px;
+            border-width: 5px;
+            background-color: rgb(246, 245, 175);
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .news, .events {
+            width: 48%;
+            background-color: #e3f2fd;
+            padding: 15px;
+            box-shadow:  6px 10px 7px rgba(24, 23, 23, 0.1);
+        }
+
+        .campus-life {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .campus-life img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://nitw.ac.in/images/logo-326x329.png" alt="NITW Logo">
+        <h1>National Institute of Technology, Warangal</h1>
+    </header>
+    <nav>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" width="20px"height="100%"></a>
+        <a href="#">Institute</a>
+        <a href="#">Administration</a>
+        <a href="#">Academics</a>
+        <a href="#">R&D</a>
+        <a href="#">Students</a>
+        <a href="#">Alumni</a>
+    </nav>
+
+    
+    <div class="slider">
+        <div class="slides">
+            <img src="https://nitw.ac.in/api/static/files/Intellectual_Property_Rights_and_Patent_S1_2024-10-4-17-36-11.jpg" alt="Campus Image 1">
+            <img src="https://nitw.ac.in/api/static/files/Gandhi_Jayanthi_2024-10-4-15-10-14.jpg" alt="Campus Image 2">
+            <img src="https://nitw.ac.in/api/static/files/Distinguished_Alumni_Awards_02024_S2_2024-10-1-11-22-4.jpg" alt="Campus Image 3">
+            <img src="https://nitw.ac.in/api/static/files/banner_2024-9-23-12-45-15.jpg" alt="Campus Image 4">
+            <img src="https://nitw.ac.in/api/static/files/Banner-Advances_in_Biological_Wastewater_Treatment_and_Integrated_Waste_Management_2024-9-25-16-12-39.jpg" alt="Campus Image 5">
+        </div>
+    </div>
+    <div class="announcements">
+        <hr>
+        <span style="font-size: 25px;">New semester starts from july .&nbsp;Convocation on April 15th.&nbsp; AIINIT Spotrs on 21st-23rd Feb </span>
+        <hr>
+    </div>
+    <h1 style="text-align: center;">Director's Message</h1>
+    <div style="display: flex;">
+        <img src="https://nitw.ac.in/api/static/files/Director_image1_2023-5-20-12-32-22.jpg" alt="director" width="30%" height="30%" margin-left: 20px;margin-top: 20px"> 
+        <p style="font-size: 22px;margin-left: 10px;">I am glad that I have been given an opportunity to serve as the Director of National Institute of Technology (NIT) Warangal-the oldest one in the bracket of first 17 NITs. It is an honour and privilege for me to lead this prestigious institute which has a rich history of its distinction in teaching, research and service to the nation. It is the first regional engineering college whose foundation stone has been laid by the former prime minister, Pandit Jawaharlal Nehru in the year 1959. Over a period of more than six decades, NIT Warangal has emerged as one of the leading institutions in engineering and technology. Warangal is the second largest city of the state of Telangana, Hyderabad being the first one which has several places of interest to visit. Some of the cultural heritages worth seeing in Warangal are Ramappa Temple, Bhadrakali Temple and thousand pillar temple. NIT Warangal is poised to create an ambience for nurturing innovation, incubation, creativity and excellence within its faculty and students towards achieving the sustainable development goals. We emphasize on student centric education with interdisciplinary research and development for the benefit of Industry and Society.NIT Warangal becomes a preferred institution for top rankers in Joint Entrance Examination (Main) because of its excellent teaching learning process, infrastructure that a student needs for effective learning. Our alumni have received distinguished recognitions in their chosen areas of profession and extend support towards sustainable development of the institute. I invite participation of all the stakeholders in the growth plan of the institute to steer it to the next level of success in all fronts.</p>
+        
+    </div>
+    <fieldset class="news-events">
+        <div class="news">
+            <h2>News</h2>
+            <fieldset  style="border-color: rgb(85, 67, 61);border-width: 4px;"> 
+                <ul>
+                    <li>Workshop on AI and ML - February 20th</li>
+                    <li>New library hours announced</li>
+                    <li>Placement drive for final-year students</li>
+                </ul>
+            </fieldset>
+        </div>
+        <div class="events">
+            <h2>Events</h2>
+            <fieldset style="border-color: rgb(85, 67, 61);border-width: 4px;">
+                <ul>
+                    <li>Tech Fest - March 10th</li>
+                    <li>Cultural Night - March 15th</li>
+                    <li>Guest Lecture by Dr. XYZ - March 25th</li>
+                </ul>
+        </fieldset>
+        </div>
+    </fieldset>
+    <div style="display: flex;margin-left: 5%;">
+        <img src="https://nitw.ac.in/images/nirf.png" width="30%">
+        <ul style="font-size: 30px;font-weight: bold;">
+            <li>ENGINEERING 21</li>
+            <li> OVERALL 53</li>
+            <li>ASIA 351-400</li>
+            <li>WORLD 1001-1200</li>
+        </ul>
+    </div>
+
+    <div class="campus-life">
+        <img src="https://nitw.ac.in/api/static/files/Teaching_for_Inclusion:_Principles_for_Effective_Practice_2024-9-26-17-34-36.jpg" alt="Campus Life Image 1">
+        <img src="https://nitw.ac.in/api/static/files/Swachhta_Pakhwada_campaign_Banner_2024-9-26-11-41-56.jpg" alt="Campus Life Image 2">
+        <img src="https://nitw.ac.in/api/static/files/Ek_Ped_Maa_Ke_Nam_2024-9-20-12-40-3.jpg" alt="Campus Life Image 3">
+    </div>
+</body>
+</html>
