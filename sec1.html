@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Blog</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+        header .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin: 0;
+        }
+        .hero h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: #555;
+        }
+        .hero button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1rem;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero button::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.5s;
+            pointer-events: none;
+        }
+        .hero button:active::after {
+            transform: scale(4);
+        }
+
+        .blog-section {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px;
+            background-color: #fff;
+        }
+        .blog-card {
+            width: 30%;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+        .blog-card img {
+            width: 100%;
+            transition: transform 0.3s;
+        }
+        .blog-card:hover img {
+            transform: scale(1.1);
+        }
+        .blog-card h3 {
+            padding: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .categories-section {
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        .category-button {
+            display: inline-block;
+            padding: 15px 20px;
+            margin: 10px;
+            border-radius: 50%;
+            border: 2px solid #007BFF;
+            color: #007BFF;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .category-button:hover {
+            background-color: #007BFF;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .subscribe-section {
+            text-align: center;
+            padding: 50px;
+            background-color: #fff;
+        }
+        .subscribe-section form {
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .subscribe-section input {
+            padding: 10px;
+            margin: 5px;
+            font-size: 1rem;
+        }
+        .subscribe-section button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+        .subscribe-section button:hover {
+            box-shadow: 0 0 10px #007BFF;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+        footer .social-icon {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        footer .social-icon:hover {
+            transform: rotate(15deg) scale(1.2);
+        }
+
+        .food-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 50px;
+            background-color: #f8f8f8;
+        }
+        .food-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Creative Blog</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Blog Post 1</h1>
+    </section>
+
+    <section class="blog-section">
+        <div class="blog-card">
+            <img src="https://img.freepik.com/premium-photo/assorted-south-indian-breakfast-foods-wooden-background-ghee-dosa-uttappammedhu-vadapongalpodi-idly-chutney-dishes-appetizers-indian-cuisine_726363-350.jpg?w=2000" alt="Blog 1" width="100%">
+            <h3>Blog Post 1</h3>
+        </div>
+        <div class="blog-card">
+            <img src="https://imgmedia.lbb.in/media/2019/08/5d662c8ea84656a7661be92a_1566977166741.jpg" alt="Blog 2" width="100%">
+            <h3>Blog Post 2</h3>
+        </div>
+        <div class="blog-card">
+            <img src="https://s4.scoopwhoop.com/dan/spicyfood1/15.jpg" alt="Blog 3"width=100%>
+            <h3>Blog Post 3</h3>
+        </div>
+    </section>
+
+    <section class="categories-section">
+        <h2>Categories</h2>
+        <div class="category-button">Tech</div>
+        <div class="category-button">Lifestyle</div>
+        <div class="category-button">Travel</div>
+    </section>
+
+    <section class="subscribe-section">
+        <h2>Subscribe to Our Newsletter</h2>
+        <form>
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <section class="food-gallery">
+        <img src="https://images.creativemarket.com/0.1.0/ps/5813908/1820/1820/m1/fpnw/wm1/wzxzyw63bmn6amnux9jyi0lnkh6v9wpjsiqs2ccw3exsafsaml48jyf3tzemj7iz-.jpg?1549204362&s=cf138535142c4e2b72369797f14ac865" alt="Indian Food 1"width="100%">
+        <img src="https://wallpapercave.com/wp/wp7845825.jpg" alt="Indian Food 2"width="100%">
+        <img src="https://www.travelsiteindia.com/blog/wp-content/uploads/2018/04/traditional-indian-food-sessions.jpg" alt="Indian Food 3"width="100%">
+        <img src="https://wallpapercave.com/wp/wp3724278.jpg" alt="Indian Food 4"width="100%">
+        <img src="https://images.ctfassets.net/3s5io6mnxfqz/6ZImCEzx6UuvuKaAiZEDDN/50479ee4a0902deb4eb1bab720ce248a/image1.jpg" alt="Indian Food 5"width="100%">
+        <img src="https://s3.scoopwhoop.com/dan/29/2.jpg" alt="Indian Food 6"width="100%">
+        <img src="https://www.tripsavvy.com/thmb/f-VZrcG8tCbTyAw3pcGI7RGBpx8=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-639704020-7fc1d09875084524bada655b9ff7e678.jpg" alt="Indian Food 7"width="100%">
+        <img src="https://d1oh9y2nmj4y5b.cloudfront.net/uploads/photo/filename/7580/Authentic_South_Indian_Meal_Served_for_guests.jpg" alt="Indian Food 8"width="100%">
+        <img src="https://sukhis.com/app/uploads/2022/04/image3-4.jpg" alt="Indian Food 9"width="100%">
+        <img src="https://www.youngisthan.in/wp-content/uploads/2021/03/5cbc5ded512c0c3e8b6c782d_1555848685957-scaled.jpg" alt="Indian Food 10"width="100%">
+        <img src="https://static1.bigstockphoto.com/8/1/3/large1500/318491239.jpg" alt="Indian Food 11"width="100%">
+        <img src="https://imgmedia.lbb.in/media/2019/06/5cfab213ea70622992f6c4db_1559933459094.jpg" alt="Indian Food 12"width="100%">
+    </section>
+
+    <footer>
+        <p>Follow us on social media:</p>
+        <span class="social-icon">&#9733;</span>
+        <span class="social-icon">&#9733;</span>
+        <span class="social-icon">&#9733;</span>
+    </footer>
+</body>
+</html>
