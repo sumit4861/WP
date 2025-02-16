@@ -52,12 +52,14 @@
         }
 
         .hero {
+            margin-top: 2%;
             padding: 5%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100%;
+            border-radius: 1000px;
             background-color: #f4f4f4;
             text-align: center;
         }
@@ -150,11 +152,19 @@
             color: white;
             transform: scale(1.1);
         }
-
-        .subscribe-section {
+        
+        .subscribe-section{
             text-align: center;
             padding: 50px;
             background-color: #fff;
+        }
+        .yt{
+            border-radius: 100%;
+            transition: transform .2s;            
+        }
+        .yt:hover{
+            transform: scale(1.2);
+
         }
         .subscribe-section form {
             display: inline-block;
@@ -211,7 +221,7 @@
     </header>
 
     <section class="hero">
-        <div style="width: 70%;height: 100%;background-color: rgb(227, 227, 196);">
+        <div style="width: 70%;height: 100%;background-color: rgb(227, 227, 196);border-radius: 50px;padding: 2%;">
         <h1>Welcome to Taste & Table – Your Culinary Journey Awaits</h1>
         <h2>At Taste & Table, we celebrate the art of food and the joy it brings to life. Our blog is dedicated to sharing mouthwatering recipes, culinary tips, and food stories that inspire both novice cooks and seasoned chefs. From comforting classics to adventurous global dishes, we explore flavors from every corner of the world. Whether you're looking for quick weeknight meals, holiday treats, or healthy eating ideas, we have something for every palate. Join our community of food lovers and let’s create delicious memories together, one recipe at a time!</h2>
         <button>Read More</button>
@@ -248,7 +258,7 @@
 
     <section class="subscribe-section">
         <h2>Subscribe  Us on Youtube</h2>
-        <img src="https://th.bing.com/th/id/OIP.lKZ7xlLixGofkpSrUWXbPgHaHa?w=1600&h=1600&rs=1&pid=ImgDetMain" width="10%" style="border-radius:100%">
+        <img class="yt" src="https://th.bing.com/th/id/OIP.lKZ7xlLixGofkpSrUWXbPgHaHa?w=1600&h=1600&rs=1&pid=ImgDetMain" width="10%">
     </section>
 
     <footer>
