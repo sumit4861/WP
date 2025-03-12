@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="cart.css" />
+</head>
+<body>
+
+    <header>
+        <h1>Your Shopping Cart</h1>
+    </header>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="btn-action" onclick="sortCart()">Sort by Name</button>
+        <button class="btn-action" onclick="filterCart()">Remove Duplicates</button>
+        <button class="btn-action" onclick="reverseCart()">Reverse Order</button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <button id="checkout-btn">Proceed to Checkout</button>
+    <br>
+    <hr>
+    <br>
+    <a class="again" href="shopping.html">RETURN TO SHOPPING</a>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        function displayCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty!</p>';
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `
+                    <p><strong>${item.name}</strong> - ₹${item.price}</p>
+                    <button onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartItemsContainer.appendChild(itemDiv);
+            });
+        }
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+        function sortCart() {
+            cart.sort((a, b) => a.name.localeCompare(b.name));
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+        function filterCart() {
+            const uniqueItems = [];
+            cart.forEach(item => {
+                if (!uniqueItems.some(uniqueItem => uniqueItem.name === item.name && uniqueItem.price === item.price)) {
+                    uniqueItems.push(item);
+                }
+            });
+            cart = uniqueItems;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+        function reverseCart() {
+            cart.reverse();
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+        window.onload = function() {
+            displayCart();
+        };
+    </script>
+
+</body>
+</html>
