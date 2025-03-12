@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Catalog</title>
+    <link rel="stylesheet" href="shopping.css" />
+</head>
+<body>
+
+    <a href="listopr.html" class="cart">
+        <img src="https://cdn-icons-png.flaticon.com/512/1413/1413908.png" alt="cart" width="4%" height="4%">
+        <span id="cart-count">0</span>
+    </a>
+
+    <header>
+        <h1>Buy Products</h1>
+    </header>
+
+    <div class="container">
+        <div class="product">
+            <img src="https://images-cdn.ubuy.co.in/633b5984f8af8c7e5a371e0b-na-i13-pro-max-cell-phones-6-3-inch-hd.jpg" alt="I13 Pro Max Cell Phone">
+            <h2>I13 Pro Max Cell Phones, 6.3 Inch HD Cellphones</h2>
+            <ul>
+                <li><h1 class="price">MRP: ₹19,999</h1></li>
+                <li><button type="button" onclick="addToCart('I13 Pro Max Cell Phone', 19999)">ADD TO CART</button></li>
+            </ul>
+        </div>
+
+        <div class="product">
+            <img src="https://img.tatacliq.com/images/i10/658Wx734H/MP000000016677444_658Wx734H_202302270105571.jpeg" alt="Panerai Watch">
+            <h2>Panerai Submersible QuarantaQuattro Goldtech</h2>
+            <ul>
+                <li><h1 class="price">MRP: ₹30,74,500</h1></li>
+                <li><button type="button" onclick="addToCart('Panerai Watch', 3074500)">ADD TO CART</button></li>
+            </ul>
+        </div>
+
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/717gpuU1qNL.jpg" alt="Smart Watch">
+            <h2>Smart Watch Compatible with iPhone Android</h2>
+            <ul>
+                <li><h1 class="price">MRP: ₹15,000</h1></li>
+                <li><button type="button" onclick="addToCart('Smart Watch', 15000)">ADD TO CART</button></li>
+            </ul>
+        </div>
+
+        <div class="product">
+            <img src="https://muselot.in/cdn/shop/products/Think-like-a-proton_-always-positive-printed-t-shirt-in-Navy-Blue-color-Muselot_2048x.png?v=1644490561" alt="Think Like a Proton T-Shirt">
+            <h2>THINK LIKE A PROTON Printed T-Shirt</h2>
+            <ul>
+                <li><h1 class="price">MRP: ₹715</h1></li>
+                <li><button type="button" onclick="addToCart('Think Like a Proton T-Shirt', 715)">ADD TO CART</button></li>
+            </ul>
+        </div>
+
+        <div class="product">
+            <img src="https://www.takeincart.com/wp-content/uploads/2023/09/holiday-768x768.jpg.webp" alt="Holiday T-Shirt">
+            <h2>HOLIDAY T-SHIRT</h2>
+            <ul>
+                <li><h1 class="price">MRP: ₹650</h1></li>
+                <li><button type="button" onclick="addToCart('Holiday T-Shirt', 650)">ADD TO CART</button></li>
+            </ul>
+        </div>
+
+        <div class="product">
+            <img src="https://redtape.com/cdn/shop/files/RSO4034_1_40cd841c-11dc-4c78-ab85-bfad034e31fe.jpg?v=1740075791" alt="Athleisure Shoes">
+            <h2>Athleisure Shoes for Men</h2>
+            <ul>
+                <li><h1 class="price">MRP: ₹1,800</h1></li>
+                <li><button type="button" onclick="addToCart('Athleisure Shoes', 1800)">ADD TO CART</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function addToCart(productName, productPrice) {
+            const item = { name: productName, price: productPrice };
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.length;
+        }
+
+        window.onload = function() {
+            updateCartCount();
+        };
+    </script>
+
+</body>
+</html>
