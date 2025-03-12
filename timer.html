@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        body{
+            padding: 20px;
+            display: flex;
+            background-color: rgb(221, 148, 160);
+            justify-content: center;
+            vertical-align: center;
+            align-items: center;
+        }
+        #timer {
+        font-size: 50px;
+        text-align: center;
+        margin-top: 20px;
+        }
+        .controls {
+        text-align: center;
+        margin-top: 15px;
+        }
+        
+        .controls button {
+        padding: 10px 15px;
+        margin: 5px;
+        font-size: 16px;
+        background-color: #333;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        }
+        header{
+            text-align: center;
+            margin-top: 50px;
+            font-size: 30px;
+        }
+        div{
+            margin: 50px;
+            background-color: rgba(192, 104, 104, 0.753);
+            box-shadow: 2px 2px 2px ;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .btn-action{
+            border-radius: 5px;
+            background-color: rgb(221, 183, 183);
+            transition: transform 0.2s;
+        }
+        .btn-action:hover{
+            transform: scale(1.1);
+            background-color: rgb(235, 166, 166);
+        }
+
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <input type="number" id="time-input" placeholder="Enter seconds" style="margin-top: 10px;">
+        <button class="btn-action" onclick="startTimer()">Start Timer</button>
+        <div id="timer">0</div>
+        <div class="controls">
+            <button class="btn-action" onclick="pauseTimer()">Pause</button>
+            <button class="btn-action" onclick="resetTimer()">Reset</button>
+        </div>
+    </div>
+    <script>
+        let timeLeft;
+    let timerInterval;
+    let isPaused = false;
+    
+    function startTimer() {
+    const timeInput = document.getElementById("time-input").value;
+    timeLeft = parseInt(timeInput);
+    if (isNaN(timeLeft) || timeLeft <= 0) return;
+    
+    if (timerInterval) clearInterval(timerInterval);
+    
+    timerInterval = setInterval(function() {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert('Time is up!');
+            return;
+        }
+        timeLeft--;
+        updateTimerDisplay();
+        updateBackgroundColor();
+    }, 1000);
+    }
+    
+    function pauseTimer() {
+    clearInterval(timerInterval);
+    }
+    
+    function resetTimer() {
+    clearInterval(timerInterval);
+    timeLeft = 0;
+    document.getElementById("timer").innerText = timeLeft;
+    document.body.style.backgroundColor = "white";
+    }
+    
+    function updateTimerDisplay() {
+    document.getElementById("timer").innerText = timeLeft;
+    }
+    
+    function updateBackgroundColor() {
+    if (timeLeft > 10) {
+        document.body.style.backgroundColor = "green";
+    } else if (timeLeft > 5) {
+        document.body.style.backgroundColor = "yellow";
+    } else {
+        document.body.style.backgroundColor = "red";
+    }
+    }
+
+    </script>
+</body>
