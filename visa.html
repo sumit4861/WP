@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Check & Application</title>
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 5)),
+            url('https://c8.alamy.com/comp/2kk5yka/visa-logo-on-waving-digital-flag-editorial-looping-animation-2kk5yka.jpg');
+            font-family: 'Poppins', sans-serif;
+            margin: 40px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        select, input {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgb(255, 255, 255);
+            outline: none;
+            transition: transform 0.2s;
+        }
+
+        select:focus, input:focus {
+            background: rgba(245, 241, 241, 0.3);
+            transform: scale(1.05);
+            color: rgb(6, 6, 6);
+        }
+
+        button {
+            background: #facc15;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform .2s;
+        }
+
+        button:hover {
+            background: #eab308;
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(255, 255, 0, 0.5);
+        }
+
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+            color: yellow;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Instant Visa Check</h2>
+    <div class="form-group">
+        <label for="country">Select Country:</label>
+        <select id="country">
+            <option value="">-- Select --</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="India">India</option>
+            <option value="UK">UK</option>
+            <option value="Australia">Australia</option>
+        </select>
+    </div>
+    <button onclick="checkVisa()">Check Visa</button>
+    <p class="message" id="visaMessage"></p>
+</div>
+<div class="container" style="margin-left: 10px;">
+    <h2>Visa Check (Server Processing)</h2>
+    <form action="visacheck.php" method="POST">
+        <div class="form-group">
+            <label for="serverCountry">Select Country:</label>
+            <select name="country" id="serverCountry">
+                <option value="">-- Select --</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="India">India</option>
+                <option value="UK">UK</option>
+                <option value="Australia">Australia</option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<div class="container" style="margin-top: 20px;margin-left: 10px;">
+    <h2>Visa Application Form</h2>
+    <div class="form-group">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+        <label for="passport">Passport Number:</label>
+        <input type="text" id="passport" placeholder="8-10 characters">
+    </div>
+    <div class="form-group">
+        <label for="countryApply">Select Country:</label>
+        <select id="countryApply">
+            <option value="">-- Select --</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="India">India</option>
+            <option value="UK">UK</option>
+            <option value="Australia">Australia</option>
+        </select>
+    </div>
+    <button onclick="applyVisa()">Apply for Visa</button>
+    <p class="message" id="applyMessage"></p>
+</div>
+
+<script>
+    function checkVisa() {
+        let country = document.getElementById("country").value;
+        let message = document.getElementById("visaMessage");
+
+        switch (country) {
+            case "USA": message.innerHTML = "Visa required for most applicants."; break;
+            case "Canada": message.innerHTML = "Visa required unless you have an eTA."; break;
+            case "India": message.innerHTML = "Visa required before travel."; break;
+            case "UK": message.innerHTML = "Visa depends on the duration of stay."; break;
+            case "Australia": message.innerHTML = "eVisa available for eligible travelers."; break;
+            default: message.innerHTML = "Please select a country."; break;
+        }
+    }
+
+    function applyVisa() {
+        let name = document.getElementById("name").value;
+        let passport = document.getElementById("passport").value;
+        let country = document.getElementById("countryApply").value;
+        let message = document.getElementById("applyMessage");
+
+        if (name === "" || passport === "" || country === "") {
+            message.innerHTML = "All fields are required!";
+            return;
+        }
+
+        if (passport.length < 8 || passport.length > 10) {
+            message.innerHTML = "Invalid passport number!";
+            return;
+        }
+
+        message.innerHTML = "Visa application submitted successfully!";
+    }
+</script>
+
+</body>
+</html>
