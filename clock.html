@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>Digital Clock</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');        
         body {
             font-family: 'Orbitron', sans-serif;
             background-color: var(--bg-primary);
@@ -16,18 +15,20 @@
             overflow: hidden;
             perspective: 1000px;
         }
-        
+
         .clock-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             transform-style: preserve-3d;
             transform: rotateX(20deg);
+            width: 100%;
+            max-width: 1000px;
         }
-        
+
         .circular-clock {
-            width: 400px;
-            height: 400px;
+            width: 420px;
+            height: 420px;
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(16,32,58,0.9), rgba(16,32,58,0.6));
             display: flex;
@@ -38,13 +39,6 @@
                 0 0 50px rgba(100,255,218,0.2),
                 inset 0 0 30px rgba(100,255,218,0.1);
             border: 3px solid var(--accent-color);
-        }
-        
-        #mainClock {
-            font-size: 3.5rem;
-            color: var(--accent-color);
-            text-shadow: 0 0 15px rgba(100,255,218,0.5);
-            letter-spacing: 3px;
         }
         :root {
             --bg-primary: #0a192f;
@@ -58,12 +52,39 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        #mainClock {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(100,255,218,0.5);
+            letter-spacing: 3px;
+        }
+
+        .theme-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .theme-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .theme-btn:hover {
+            opacity: 0.7;
+        }
+
         .clock-features {
             display: flex;
             justify-content: space-around;
             width: 100%;
             margin-top: 30px;
+            transform: skew(-10deg);
         }
 
         .feature-panel {
@@ -74,10 +95,11 @@
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
+            transform: skew(10deg);
         }
 
         .feature-panel:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) skew(10deg);
         }
 
         .feature-title {
@@ -116,7 +138,7 @@
         }
 
         .input-group input {
-            width: 100px;
+            width: 100%;
             padding: 5px;
             background-color: rgba(255,255,255,0.1);
             border: 1px solid var(--accent-color);
@@ -138,6 +160,15 @@
         .active-timer {
             animation: pulse 1.5s infinite;
         }
+
+        @keyframes blinkColon {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .colon {
+            animation: blinkColon 1s infinite;
+        }
     </style>
 </head>
 <body>
@@ -147,12 +178,20 @@
         </div>
         <div id="dateDisplay">Wednesday, March 26, 2025</div>
         
+        <div class="theme-switcher">
+            <button class="theme-btn" style="background-color: #f0f0f0;" onclick="changeTheme('light')">Light</button>
+            <button class="theme-btn" style="background-color: #333; color: white;" onclick="changeTheme('dark')">Dark</button>
+            <button class="theme-btn" style="background-color: #0ff;" onclick="changeTheme('neon')">Neon</button>
+            <button class="theme-btn" style="background-color: #ff6b6b;" onclick="changeTheme('custom')">Custom</button>
+        </div>
+
         <div class="clock-features">
             <div class="feature-panel" id="alarmPanel">
                 <div class="feature-title">Alarm</div>
                 <div class="input-group">
                     <input type="time" id="alarmTime">
                 </div>
+                <input type="text" id="alarmLabel" placeholder="Alarm Label" style="width: 100%; margin-bottom: 10px;">
                 <button class="control-btn" onclick="setAlarm()">Set Alarm</button>
                 <div class="feature-display" id="alarmStatus">No Alarm Set</div>
             </div>
@@ -187,56 +226,81 @@
             let hours = now.getHours();
             const minutes = now.getMinutes().toString().padStart(2, '0');
             const seconds = now.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
             
             hours = hours % 12;
             hours = hours ? hours : 12;
             const formattedHours = hours.toString().padStart(2, '0');
             
-            mainClock.textContent = `${formattedHours}:${minutes}:${seconds}`;
+            mainClock.innerHTML = `${formattedHours}<span class="colon">:</span>${minutes}<span class="colon">:</span>${seconds} ${ampm}`;
             dateDisplay.textContent = now.toLocaleDateString('en-US', { 
                 weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
             });
-            checkAlarm(formattedHours, minutes);
+
+            checkAlarm(formattedHours, minutes, ampm);
         }
+        function changeTheme(theme) {
+            const body = document.body;
+            
+            switch(theme) {
+                case 'light':
+                    body.style.backgroundColor = '#f0f0f0';
+                    break;
+                case 'dark':
+                    body.style.backgroundColor = '#333';
+                    break;
+                case 'neon':
+                    body.style.backgroundColor = '#0ff';
+                    break;
+                case 'custom':
+                    body.style.backgroundColor = '#ff6b6b';
+                    break;
+            }
+        }
+
         let alarmSet = null;
         function setAlarm() {
             const alarmTimeInput = document.getElementById('alarmTime').value;
+            const alarmLabel = document.getElementById('alarmLabel').value;
             const alarmStatus = document.getElementById('alarmStatus');
             
             if (alarmTimeInput) {
                 const [hours, minutes] = alarmTimeInput.split(':');
-                alarmSet = { hours, minutes };
-                alarmStatus.textContent = `Alarm set for ${alarmTimeInput}`;
+                alarmSet = { 
+                    hours: hours.padStart(2, '0'), 
+                    minutes: minutes.padStart(2, '0'),
+                    ampm: hours >= 12 ? 'PM' : 'AM',
+                    label: alarmLabel || 'Unnamed Alarm'
+                };
+                alarmStatus.textContent = `Alarm set for ${alarmTimeInput} - ${alarmSet.label}`;
                 alarmStatus.style.color = '#64ffda';
             }
         }
 
-        function checkAlarm(currentHours, currentMinutes) {
+        function checkAlarm(currentHours, currentMinutes, currentAmpm) {
             if (alarmSet && 
                 alarmSet.hours === currentHours && 
-                alarmSet.minutes === currentMinutes) {
+                alarmSet.minutes === currentMinutes &&
+                alarmSet.ampm === currentAmpm) {
                 alarmSound.play();
                 const alarmStatus = document.getElementById('alarmStatus');
-                alarmStatus.textContent = 'ALARM!';
+                alarmStatus.textContent = `ALARM: ${alarmSet.label}`;
                 alarmStatus.style.color = 'red';
                 alarmSet = null; 
             }
         }
-
         let stopwatchInterval;
         let stopwatchSeconds = 0;
         function startStopwatch() {
             if (stopwatchInterval) return;
-            const stopwatchDisplay = document.getElementById('stopwatchDisplay');
-            const stopwatchPanel = document.getElementById('stopwatchPanel');
             
             stopwatchInterval = setInterval(() => {
                 stopwatchSeconds++;
                 updateStopwatchDisplay();
-                stopwatchPanel.classList.add('active-timer');
+                document.getElementById('stopwatchPanel').classList.add('active-timer');
             }, 1000);
         }
 
@@ -269,6 +333,7 @@
             const timerPanel = document.getElementById('timerPanel');
             
             if (totalSeconds <= 0) return;
+            
             clearInterval(countdownInterval);
             
             let remainingSeconds = totalSeconds;
