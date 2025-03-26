@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Clock</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--bg-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-style: preserve-3d;
+            transform: rotateX(20deg);
+        }
+        
+        .circular-clock {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16,32,58,0.9), rgba(16,32,58,0.6));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 
+                0 0 50px rgba(100,255,218,0.2),
+                inset 0 0 30px rgba(100,255,218,0.1);
+            border: 3px solid var(--accent-color);
+        }
+        
+        #mainClock {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(100,255,218,0.5);
+            letter-spacing: 3px;
+        }
+        :root {
+            --bg-primary: #0a192f;
+            --accent-color: #64ffda;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .clock-features {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .feature-panel {
+            background: rgba(16,32,58,0.7);
+            border-radius: 15px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-panel:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-title {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .feature-display {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .control-btn {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background-color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            width: 100px;
+            padding: 5px;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        #dateDisplay {
+            color: var(--text-secondary);
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .active-timer {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="circular-clock">
+            <div id="mainClock">00:00:00</div>
+        </div>
+        <div id="dateDisplay">Wednesday, March 26, 2025</div>
+        
+        <div class="clock-features">
+            <div class="feature-panel" id="alarmPanel">
+                <div class="feature-title">Alarm</div>
+                <div class="input-group">
+                    <input type="time" id="alarmTime">
+                </div>
+                <button class="control-btn" onclick="setAlarm()">Set Alarm</button>
+                <div class="feature-display" id="alarmStatus">No Alarm Set</div>
+            </div>
+            <div class="feature-panel" id="stopwatchPanel">
+                <div class="feature-title">Stopwatch</div>
+                <div class="feature-display" id="stopwatchDisplay">00:00:00</div>
+                <div>
+                    <button class="control-btn" onclick="startStopwatch()">Start</button>
+                    <button class="control-btn" onclick="pauseStopwatch()">Pause</button>
+                    <button class="control-btn" onclick="resetStopwatch()">Reset</button>
+                </div>
+            </div>
+            <div class="feature-panel" id="timerPanel">
+                <div class="feature-title">Countdown Timer</div>
+                <div class="input-group">
+                    <input type="number" id="minutesInput" placeholder="Min" min="0">
+                    <input type="number" id="secondsInput" placeholder="Sec" min="0">
+                </div>
+                <button class="control-btn" onclick="startCountdown()">Start</button>
+                <div class="feature-display" id="countdownDisplay">00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const alarmSound = new Audio('pikachu.mp3');
+        function updateClock() {
+            const now = new Date();
+            const mainClock = document.getElementById('mainClock');
+            const dateDisplay = document.getElementById('dateDisplay');
+            
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const formattedHours = hours.toString().padStart(2, '0');
+            
+            mainClock.textContent = `${formattedHours}:${minutes}:${seconds}`;
+            dateDisplay.textContent = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            checkAlarm(formattedHours, minutes);
+        }
+        let alarmSet = null;
+        function setAlarm() {
+            const alarmTimeInput = document.getElementById('alarmTime').value;
+            const alarmStatus = document.getElementById('alarmStatus');
+            
+            if (alarmTimeInput) {
+                const [hours, minutes] = alarmTimeInput.split(':');
+                alarmSet = { hours, minutes };
+                alarmStatus.textContent = `Alarm set for ${alarmTimeInput}`;
+                alarmStatus.style.color = '#64ffda';
+            }
+        }
+
+        function checkAlarm(currentHours, currentMinutes) {
+            if (alarmSet && 
+                alarmSet.hours === currentHours && 
+                alarmSet.minutes === currentMinutes) {
+                alarmSound.play();
+                const alarmStatus = document.getElementById('alarmStatus');
+                alarmStatus.textContent = 'ALARM!';
+                alarmStatus.style.color = 'red';
+                alarmSet = null; 
+            }
+        }
+
+        let stopwatchInterval;
+        let stopwatchSeconds = 0;
+        function startStopwatch() {
+            if (stopwatchInterval) return;
+            const stopwatchDisplay = document.getElementById('stopwatchDisplay');
+            const stopwatchPanel = document.getElementById('stopwatchPanel');
+            
+            stopwatchInterval = setInterval(() => {
+                stopwatchSeconds++;
+                updateStopwatchDisplay();
+                stopwatchPanel.classList.add('active-timer');
+            }, 1000);
+        }
+
+        function pauseStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+            document.getElementById('stopwatchPanel').classList.remove('active-timer');
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+            stopwatchSeconds = 0;
+            updateStopwatchDisplay();
+            document.getElementById('stopwatchPanel').classList.remove('active-timer');
+        }
+
+        function updateStopwatchDisplay() {
+            const hours = Math.floor(stopwatchSeconds / 3600);
+            const minutes = Math.floor((stopwatchSeconds % 3600) / 60);
+            const seconds = stopwatchSeconds % 60;
+            document.getElementById('stopwatchDisplay').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        let countdownInterval;
+        function startCountdown() {
+            const minutes = parseInt(document.getElementById('minutesInput').value || 0);
+            const seconds = parseInt(document.getElementById('secondsInput').value || 0);
+            const totalSeconds = minutes * 60 + seconds;
+            const timerPanel = document.getElementById('timerPanel');
+            
+            if (totalSeconds <= 0) return;
+            clearInterval(countdownInterval);
+            
+            let remainingSeconds = totalSeconds;
+            const countdownDisplay = document.getElementById('countdownDisplay');
+            
+            timerPanel.classList.add('active-timer');
+            
+            countdownInterval = setInterval(() => {
+                if (remainingSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownDisplay.textContent = 'Time Up!';
+                    timerPanel.classList.remove('active-timer');
+                    alarmSound.play();
+                    return;
+                }
+                
+                remainingSeconds--;
+                const displayMinutes = Math.floor(remainingSeconds / 60);
+                const displaySeconds = remainingSeconds % 60;
+                
+                countdownDisplay.textContent = 
+                    `${displayMinutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
