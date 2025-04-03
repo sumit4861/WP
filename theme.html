@@ -3,106 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>theme</title>
-    <link rel="stylesheet" href="theme.css" />
+    <title>Online Store</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+        .lighttheme {
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        .darktheme {
+            background: #222;
+            color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 15px;
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .darktheme .product {
+            background: #333;
+            color: white;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .price {
+            color: #ff5733;
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+        .cart {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart img {
+            width: 40px;
+        }
+
+        .cart span {
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-weight: bold;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+        }
+        #thememode {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 30px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .darktheme #thememode {
+            background: white;
+            color: black;
+        }
+
+        #thememode:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-icon {
+            font-size: 18px;
+        }
+    </style>
 </head>
-<body>
+<body class="lighttheme">
     <a href="cart.html" class="cart">
-        <img src="https://cdn-icons-png.flaticon.com/512/1413/1413908.png" alt="cart" width="4%" height="4%">
+        <img src="https://cdn-icons-png.flaticon.com/512/1413/1413908.png" alt="cart">
         <span id="cart-count">0</span>
     </a>
-    <button id="thememode">Switch Theme</button>
+    <button id="thememode">
+        <span class="theme-icon">☀️</span> Switch Theme
+    </button>
 
     <header>
-        <h1>Buy Products</h1>
+        <h1>🛍️ Buy Products</h1>
     </header>
 
     <div class="container">
         <div class="product">
             <img src="https://images-cdn.ubuy.co.in/633b5984f8af8c7e5a371e0b-na-i13-pro-max-cell-phones-6-3-inch-hd.jpg" alt="I13 Pro Max Cell Phone">
             <h2>I13 Pro Max Cell Phones, 6.3 Inch HD Cellphones</h2>
-            <ul>
-                <li><h1 class="price">MRP: ₹69,999</h1></li>
-                <li><button type="button" onclick="addToCart('I13 Pro Max Cell Phone', 69999)">ADD TO CART</button></li>
-            </ul>
+            <p class="price">MRP: ₹69,999</p>
+            <button onclick="addToCart('I13 Pro Max Cell Phone', 69999)">ADD TO CART</button>
         </div>
 
         <div class="product">
             <img src="https://img.tatacliq.com/images/i10/658Wx734H/MP000000016677444_658Wx734H_202302270105571.jpeg" alt="Panerai Watch">
             <h2>Panerai Submersible QuarantaQuattro Goldtech</h2>
-            <ul>
-                <li><h1 class="price">MRP: ₹30,74,500</h1></li>
-                <li><button type="button" onclick="addToCart('Panerai Watch', 3074500)">ADD TO CART</button></li>
-            </ul>
+            <p class="price">MRP: ₹30,74,500</p>
+            <button onclick="addToCart('Panerai Watch', 3074500)">ADD TO CART</button>
         </div>
 
         <div class="product">
             <img src="https://m.media-amazon.com/images/I/717gpuU1qNL.jpg" alt="Smart Watch">
             <h2>Smart Watch Compatible with iPhone Android</h2>
-            <ul>
-                <li><h1 class="price">MRP: ₹15,000</h1></li>
-                <li><button type="button" onclick="addToCart('Smart Watch', 15000)">ADD TO CART</button></li>
-            </ul>
-        </div>
-
-        <div class="product">
-            <img src="https://muselot.in/cdn/shop/products/Think-like-a-proton_-always-positive-printed-t-shirt-in-Navy-Blue-color-Muselot_2048x.png?v=1644490561" alt="Think Like a Proton T-Shirt">
-            <h2>THINK LIKE A PROTON Printed T-Shirt</h2>
-            <ul>
-                <li><h1 class="price">MRP: ₹715</h1></li>
-                <li><button type="button" onclick="addToCart('Think Like a Proton T-Shirt', 715)">ADD TO CART</button></li>
-            </ul>
-        </div>
-
-        <div class="product">
-            <img src="https://www.takeincart.com/wp-content/uploads/2023/09/holiday-768x768.jpg.webp" alt="Holiday T-Shirt">
-            <h2>HOLIDAY T-SHIRT</h2>
-            <ul>
-                <li><h1 class="price">MRP: ₹650</h1></li>
-                <li><button type="button" onclick="addToCart('Holiday T-Shirt', 650)">ADD TO CART</button></li>
-            </ul>
-        </div>
-
-        <div class="product">
-            <img src="https://redtape.com/cdn/shop/files/RSO4034_1_40cd841c-11dc-4c78-ab85-bfad034e31fe.jpg?v=1740075791" alt="Athleisure Shoes">
-            <h2>Athleisure Shoes for Men</h2>
-            <ul>
-                <li><h1 class="price">MRP: ₹1,800</h1></li>
-                <li><button type="button" onclick="addToCart('Athleisure Shoes', 1800)">ADD TO CART</button></li>
-            </ul>
+            <p class="price">MRP: ₹15,000</p>
+            <button onclick="addToCart('Smart Watch', 15000)">ADD TO CART</button>
         </div>
     </div>
 
     <script>
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let theme = document.getElementById('thememode') ;
-        const body=document.body;
-        if(localStorage.getItem('theme') === 'dark') {
-            body.classList.add('darktheme');
-        }
-        theme.addEventListener('click', () => {
-            body.classList.toggle('darktheme');
-            if (body.classList.contains('darktheme')) {
-                localStorage.setItem('theme', 'dark');
+        let themeButton = document.getElementById('thememode');
+        let themeIcon = themeButton.querySelector('.theme-icon');
+        let body = document.body;
+
+        function updateTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('darktheme');
+                themeIcon.textContent = "🌙";
             } else {
-                localStorage.setItem('theme', 'light');
+                body.classList.remove('darktheme');
+                themeIcon.textContent = "☀️";
             }
+        }
+        updateTheme();
+
+        themeButton.addEventListener('click', () => {
+            if (body.classList.contains('darktheme')) {
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+            }
+            updateTheme();
         });
+
         function addToCart(productName, productPrice) {
-            const item = { name: productName, price: productPrice };
-            cart.push(item);
+            cart.push({ name: productName, price: productPrice });
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
         }
 
         function updateCartCount() {
-            const cartCount = document.getElementById('cart-count');
-            cartCount.textContent = cart.length;
+            document.getElementById('cart-count').textContent = cart.length;
         }
 
-        window.onload = function() {
-            updateCartCount();
-        };
+        window.onload = updateCartCount;
     </script>
 
 </body>
